@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { background-color: #111; color: white; font-family: sans-serif; text-align: center; touch-action: manipulation; }
+        input { font-size: 1.2em; padding: 10px; width: 80%; margin-bottom: 20px; }
+        button.join { background: #d4af37; border: none; padding: 15px; width: 80%; font-weight: bold; font-size: 1.2em; }
+        
+        #game-ui { display: none; height: 100vh; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; padding: 10px; }
+        .opt-btn { font-size: 2em; border: none; color: white; font-weight: bold; border-radius: 10px; }
+        .btn-0 { background-color: #e74c3c; } /* Red */
+        .btn-1 { background-color: #3498db; } /* Blue */
+        .btn-2 { background-color: #f1c40f; color: black; } /* Gold */
+        .btn-3 { background-color: #2ecc71; } /* Green */
+        
+        #waiting-msg { display:none; margin-top: 50px; font-size: 1.5em; color: #d4af37; }
+    </style>
+</head>
+<body>
+
+    <div id="login-ui">
+        <h2 style="color:#d4af37">RECRUIT SIGN-IN</h2>
+        <input type="text" id="username" placeholder="Enter Name (e.g. Pvt. Pyle)" />
+        <br>
+        <button class="join" onclick="joinGame()">REPORT FOR DUTY</button>
+    </div>
+
+    <div id="waiting-msg">AYE AYE SIR! Waiting for Gunny...</div>
+
+    <div id="game-ui">
+        <button class="opt-btn btn-0" onclick="submit(0)">A</button>
+        <button class="opt-btn btn-1" onclick="submit(1)">B</button>
+        <button class="opt-btn btn-2" onclick="submit(2)">C</button>
+        <button class="opt-btn btn-3" onclick="submit(3)">D</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        
+        function joinGame() {
+            const name = document.getElementById('username').value;
+            if(!name) return alert("SAY YOUR NAME MAGGOT!");
+            
+            socket.emit('joinGame', { role: 'player', name: name });
+            document.getElementById('login-ui').style.display = 'none';
+            document.getElementById('waiting-msg').style.display = 'block';
+        }
+
+        socket.on('newQuestion', () => {
+            document.getElementById('waiting-msg').style.display = 'none';
+            document.getElementById('game-ui').style.display = 'grid';
+        });
+
+        function submit(index) {
+            socket.emit('submitAnswer', index);
+            document.getElementById('game-ui').style.display = 'none';
+            document.getElementById('waiting-msg').innerText = "TARGET ENGAGED. STAND BY.";
+            document.getElementById('waiting-msg').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
