@@ -1,65 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Controller</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Corps & Robbers - HOST</title>
     <style>
-        body { background-color: #111; color: white; font-family: sans-serif; text-align: center; touch-action: manipulation; }
-        input { font-size: 1.2em; padding: 10px; width: 80%; margin-bottom: 20px; }
-        button.join { background: #d4af37; border: none; padding: 15px; width: 80%; font-weight: bold; font-size: 1.2em; }
-        
-        #game-ui { display: none; height: 100vh; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; padding: 10px; }
-        .opt-btn { font-size: 2em; border: none; color: white; font-weight: bold; border-radius: 10px; }
-        .btn-0 { background-color: #e74c3c; } /* Red */
-        .btn-1 { background-color: #3498db; } /* Blue */
-        .btn-2 { background-color: #f1c40f; color: black; } /* Gold */
-        .btn-3 { background-color: #2ecc71; } /* Green */
-        
-        #waiting-msg { display:none; margin-top: 50px; font-size: 1.5em; color: #d4af37; }
+        body { background-color: #0a0f0a; color: #00ff41; font-family: 'Courier New', monospace; text-align: center; }
+        .container { max-width: 800px; margin: 0 auto; border: 4px solid #d4af37; padding: 20px; background: #1a1a1a; }
+        h1 { color: #d4af37; text-transform: uppercase; font-size: 3em; margin-bottom: 5px; }
+        #question-box { display: none; font-size: 1.5em; margin: 20px 0; border: 2px dashed #00ff41; padding: 20px; }
+        .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .ans-card { background: #333; padding: 15px; border: 1px solid #555; }
+        #player-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 30px; }
+        .maggot { background: #d4af37; color: black; padding: 5px 15px; font-weight: bold; border-radius: 5px; }
+        .btn { background: #c00; color: white; border: none; padding: 15px 30px; font-size: 1.2em; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Corps & Robbers</h1>
+        <h3 id="status">WAITING FOR MAGGOTS...</h3>
+        
+        <div id="player-list"></div>
+        <button id="start-btn" class="btn" onclick="startGame()">START EXERCISE</button>
+        <button id="next-btn" class="btn" onclick="nextQuestion()" style="display:none;">NEXT QUESTION</button>
 
-    <div id="login-ui">
-        <h2 style="color:#d4af37">RECRUIT SIGN-IN</h2>
-        <input type="text" id="username" placeholder="Enter Name (e.g. Pvt. Pyle)" />
-        <br>
-        <button class="join" onclick="joinGame()">REPORT FOR DUTY</button>
-    </div>
-
-    <div id="waiting-msg">AYE AYE SIR! Waiting for Gunny...</div>
-
-    <div id="game-ui">
-        <button class="opt-btn btn-0" onclick="submit(0)">A</button>
-        <button class="opt-btn btn-1" onclick="submit(1)">B</button>
-        <button class="opt-btn btn-2" onclick="submit(2)">C</button>
-        <button class="opt-btn btn-3" onclick="submit(3)">D</button>
+        <div id="question-box">
+            <p id="q-text"></p>
+            <div class="answers" id="answers-container"></div>
+        </div>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-        
-        function joinGame() {
-            const name = document.getElementById('username').value;
-            if(!name) return alert("SAY YOUR NAME MAGGOT!");
-            
-            socket.emit('joinGame', { role: 'player', name: name });
-            document.getElementById('login-ui').style.display = 'none';
-            document.getElementById('waiting-msg').style.display = 'block';
-        }
+        socket.emit('joinGame', { role: 'host' });
 
-        socket.on('newQuestion', () => {
-            document.getElementById('waiting-msg').style.display = 'none';
-            document.getElementById('game-ui').style.display = 'grid';
+        socket.on('updatePlayerList', (players) => {
+            const list = document.getElementById('player-list');
+            list.innerHTML = players.map(p => `<div class="maggot">${p.name} (${p.score})</div>`).join('');
         });
 
-        function submit(index) {
-            socket.emit('submitAnswer', index);
-            document.getElementById('game-ui').style.display = 'none';
-            document.getElementById('waiting-msg').innerText = "TARGET ENGAGED. STAND BY.";
-            document.getElementById('waiting-msg').style.display = 'block';
-        }
+        socket.on('newQuestion', (q) => {
+            document.getElementById('status').innerText = "EYES FRONT!";
+            document.getElementById('start-btn').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'block';
+            document.getElementById('question-box').style.display = 'block';
+            
+            document.getElementById('q-text').innerText = q.question;
+            document.getElementById('answers-container').innerHTML = q.answers.map(a => 
+                `<div class="ans-card">${a}</div>`
+            ).join('');
+        });
+
+        socket.on('playerAnswered', (data) => {
+            // Visual feedback that someone answered
+            console.log(data.name + " answered!");
+        });
+
+        socket.on('gameOver', (players) => {
+            let winner = players.sort((a,b) => b.score - a.score)[0];
+            document.body.innerHTML = `<h1 style="color:gold; margin-top:20%;">GAME OVER</h1><h2>Winner: ${winner ? winner.name : 'Nobody'}</h2>`;
+        });
+
+        function startGame() { socket.emit('startGame'); }
+        function nextQuestion() { socket.emit('nextQuestion'); }
     </script>
 </body>
 </html>
