@@ -30,6 +30,46 @@ const questions = [
         correctIndex: 0 // A
     },
     {
+        question: "Who was the first female Marine?",
+        answers: [
+            "A) Oprah Mae Winfrey",
+            "B) Opha Mae Johnson",
+            "C) Maggie Mae Stewart",
+            "D) Ophelia Mae Jackson"
+        ],
+        correctIndex: 1 // B
+    },
+    {
+        question: "When Gunny tells you to put away your 'pogie bait' what is he referring to?",
+        answers: [
+            "A) Fishing lures",
+            "B) Crayons",
+            "C) Cell phone",
+            "D) Snacks"
+        ],
+        correctIndex: 3 // D
+    },
+    {
+        question: "Which Marines won two Medals of Honor?",
+        answers: [
+            "A) Don Johnson & Brett Butler",
+            "B) Smedley Daly & Dan Butler",
+            "C) Dan Daly & Smedley Butler",
+            "D) Chesty Puller & Alfred Cunningham"
+        ],
+        correctIndex: 2 // C
+    },
+    {
+        question: "Where was the Marine Corps first amphibious landing?",
+        answers: [
+            "A) Nassau, Bahamas",
+            "B) Seoul, South Korea",
+            "C) Myrtle Beach, South Carolina",
+            "D) Pearl Harbor, Hawaii"
+        ],
+        correctIndex: 0 // A
+    },
+    {
         question: "Finish the phrase: 'Semper Gumby' means...",
         answers: [
             "A) Always Green",
