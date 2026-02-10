@@ -60,42 +60,47 @@
             // 1. Sort players by score (Highest to Lowest)
             players.sort((a, b) => b.score - a.score);
 
-            // 2. Generate the HTML rows
+            // 2. Generate Table Rows
             let rows = players.map((p, index) => {
                 let rank = index + 1;
-                // Gold color for 1st place, Green for everyone else
+                // Gold for 1st, Green for others
                 let color = (index === 0) ? '#d4af37' : '#00ff41'; 
-                let icon = (index === 0) ? '⭐' : ''; // Star for winner
+                let icon = (index === 0) ? '⭐' : ''; 
 
                 return `
-                    <div style="border-bottom: 1px dashed #333; padding: 15px; display: flex; justify-content: space-between; align-items: center; color: ${color}; font-size: 1.5em;">
-                        <span style="font-weight:bold;">#${rank} ${p.name} ${icon}</span>
-                        <span>${p.score}</span>
-                    </div>
+                    <tr style="color: ${color}; font-size: 1.5em; border-bottom: 1px dashed #333;">
+                        <td style="padding: 10px; text-align: left;">#${rank} ${p.name} ${icon}</td>
+                        <td style="padding: 10px; text-align: right; font-weight: bold; color: white;">
+                            ${p.score !== undefined ? p.score : 0} PTS
+                        </td>
+                    </tr>
                 `;
             }).join('');
 
-            // 3. Inject the Final Scoreboard Screen
+            // 3. Inject the Final Scoreboard
             document.body.innerHTML = `
                 <div class="container" style="margin-top: 50px; border-color: #c00;">
-                    <h1 style="color: #c00; font-size: 4em; text-shadow: 2px 2px #000;">FINAL STANDINGS</h1>
-                    <h3 style="color: #d4af37;">PROMOTION WARRANT</h3>
+                    <h1 style="color: #c00; font-size: 3em;">FINAL STANDINGS</h1>
                     
-                    <div style="background: #111; border: 2px solid #555; padding: 20px; text-align: left;">
-                        <div style="display:flex; justify-content:space-between; color:#666; font-size:0.8em; margin-bottom:10px;">
-                            <span>MARINE</span>
-                            <span>SCORE</span>
-                        </div>
-                        ${rows}
+                    <div style="background: #111; border: 2px solid #555; padding: 20px;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="color: #666; border-bottom: 2px solid #444; font-size: 0.8em;">
+                                    <th style="text-align: left; padding-bottom: 10px;">MARINE</th>
+                                    <th style="text-align: right; padding-bottom: 10px;">SCORE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${rows}
+                            </tbody>
+                        </table>
                     </div>
 
                     <br>
                     <div style="color: #fff; font-size: 1.2em; margin-top: 20px;">
-                        <p>${players[0].name} gets a 96-hour libbo pass!</p>
-                        <p style="color:#666;">Everyone else report for Police Call.</p>
+                        <p style="color: gold;">Winner: ${players[0].name}</p>
+                        <button class="btn" onclick="location.reload()" style="background: #00ff41; color: black;">PLAY AGAIN</button>
                     </div>
-                    
-                    <button class="btn" onclick="location.reload()">RE-ENLIST (PLAY AGAIN)</button>
                 </div>
             `;
         });
