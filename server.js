@@ -60,7 +60,7 @@ const questions = [
         correctIndex: 2 // C
     },
     {
-        question: "Where was the Marine Corps first amphibious landing?",
+        question: "Where was the Marine Corps' first amphibious landing?",
         answers: [
             "A) Nassau, Bahamas",
             "B) Seoul, South Korea",
@@ -70,15 +70,85 @@ const questions = [
         correctIndex: 0 // A
     },
     {
-        question: "Finish the phrase: 'Semper Gumby' means...",
+        question: "Which Marine was awarded 5 Navy Crosses?",
         answers: [
-            "A) Always Green",
-            "B) Always Flexible",
-            "C) Always Stretching",
-            "D) Always Claymation"
+            "A) John Basilone",
+            "B) Chesty Puller",
+            "C) Samuel Nicholas",
+            "D) Opha Mae Johnson"
         ],
         correctIndex: 1 // B
-    }
+    },
+    {
+        question: "What is the birthplace of the Marine Corps?",
+        answers: [
+            "A) Parris Island, SC",
+            "B) Blackbeard's Bar, Tampa",
+            "C) Guantanamo Bay, Cuba",
+            "D) Tun Tavern, Philadelphia"
+        ],
+        correctIndex: 3 // D
+    },
+    {
+        question: "Who is the father of Marine Corps Aviation?",
+        answers: [
+            "A) Alfred A. Cunningham",
+            "B) Lewis B. Puller",
+            "C) John F. Kennedy",
+            "D) John C. Reilly"
+        ],
+        correctIndex: 0 // A
+    },
+    {
+        question: "The NCO blood stripe is derived from which battle?",
+        answers: [
+            "A) Charleston",
+            "B) Chattanooga",
+            "C) Chapultepec",
+            "D) Chipotle"
+        ],
+        correctIndex: 2 // C
+    },
+    {
+        question: "Who founded the Marine Corps emblem?",
+        answers: [
+            "A) General James Mattis",
+            "B) Brigadier General Jacob Zielen",
+            "C) Major General John Lejeune",
+            "D) General Motors"
+        ],
+        correctIndex: 1 // B
+    },
+    {
+        question: "What is the Marine Corps motto?",
+        answers: [
+            "A) Semper Paratus",
+            "B) Semper Gumby",
+            "C) Semper Nova",
+            "D) Semper Fidelis"
+        ],
+        correctIndex: 3 // D
+    },
+    {
+        question: "What is the Marine Corps birthdate?",
+        answers: [
+            "A) November 10, 1775",
+            "B) December 7, 1941",
+            "C) July 4, 1776",
+            "D) September 11, 2001"
+        ],
+        correctIndex: 0 // A
+    },
+    {
+        question: "What are the Marine Corps colors?",
+        answers: [
+            "A) Black & Blue",
+            "B) Olive Green & Tan",
+            "C) Scarlet & Gold",
+            "D) Red, White & Blue"
+        ],
+        correctIndex: 2 // C
+    },
 ];
 
 let gameState = {
