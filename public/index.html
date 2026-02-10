@@ -42,7 +42,7 @@
         
         function joinGame() {
             const name = document.getElementById('username').value;
-            if(!name) return alert("SAY YOUR NAME MAGGOT!");
+            if(!name) return alert("SAY YOUR NAME CADET!");
             
             socket.emit('joinGame', { role: 'player', name: name });
             document.getElementById('login-ui').style.display = 'none';
