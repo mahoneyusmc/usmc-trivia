@@ -149,6 +149,66 @@ const questions = [
         ],
         correctIndex: 2 // C
     },
+    {
+        question: "What is the Marine Officer sword called?",
+        answers: [
+            "A) Marmalade sword",
+            "B) Malpractice sword",
+            "C) Masterpiece sword",
+            "D) Mameluke sword"
+        ],
+        correctIndex: 3 // D
+    },
+    {
+        question: "What is the regulation for the wear of the web belt?",
+        answers: [
+            "A) 3 inches past the buckle",
+            "B) 2-4 inches past the buckle",
+            "C) centered on the gig line",
+            "D) 6-8 inches past the buckle"
+        ],
+        correctIndex: 1 // B
+    },
+    {
+        question: "Where did the Marines earn the nickname Devil Dogs?",
+        answers: [
+            "A) The Battle of the Bulge",
+            "B) The Battle of Fallujah",
+            "C) The Battle of Belleau Wood",
+            "D) The Battle of Chapultapec"
+        ],
+        correctIndex: 2 // C
+    },
+    {
+        question: "What do Marines call a bed?",
+        answers: [
+            "A) Rack",
+            "B) Sack",
+            "C) Flak",
+            "D) Tempur-pedic"
+        ],
+        correctIndex: 0 // A
+    },
+    {
+        question: "What is the Marine term for bathroom or toilet?",
+        answers: [
+            "A) Lattrine",
+            "B) Little Boys/Girls room",
+            "C) Outhouse",
+            "D) Head"
+        ],
+        correctIndex: 3 // D
+    },
+    {
+        question: "Who was the 'Grand Old Man' of the Marine Corps?",
+        answers: [
+            "A) Chesty Puller",
+            "B) Archibald Henderson",
+            "C) James Mattis",
+            "D) Samuel Nicholas"
+        ],
+        correctIndex: 1 // B
+    },
 ];
 
 let gameState = {
